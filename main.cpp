@@ -1,21 +1,40 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <board.h>
+#include <ctime>
+#include <sys/time.h>
+
+#include "board.h"
+#include "board2.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    //QGuiApplication app(argc, argv);
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    //QQmlApplicationEngine engine;
+    //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    return app.exec();
+    Board B(4);
+    B.init();
+    cout << B << endl;
 
-    Board B(5,8,4);
-    B.init(5);
-    B.set(0,0,0);
-    cout << B;
+    while(1){
+        try{
+        B.right();
+        //cout << B << endl;
+        B.up();
+        //cout << B << endl;
+        B.left();
+        //cout << B << endl;
+        B.down();
+        //cout << B << endl;
+        }
+        catch(const char* message){
+            cout << message << endl;
+            return 0;
+        }
+    }
 
-
+    //return app.exec();
     return 0;
 }
+

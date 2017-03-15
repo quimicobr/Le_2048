@@ -1,73 +1,131 @@
-#include "board.h"
-
 #include <iomanip>
 #include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <sys/time.h>
+
 using namespace std;
 
-void TestValeur(int x, int y, int tx, int ty){
+#include "board.h"
+
+void TestValeur(int x, int y, int d){
     if (x < 0 || y < 0){
-        cout << "Indice negatif" << endl;
         throw "Indice negatif";
     }
-    if (x >= tx || y >= ty){
-        cout << "Indice depasse les dimensions du Board" << endl;
+    if (x >= d || y >= d){
         throw "Indice depasse les dimensions du Board";
     }
 }
 
-void ExceptionBoard(int i, int b){
-    if (i<0 || i>=b){
+int cherche_zero(Board &B){
 
-        string m1, m2, m3, m4;
-        string file(__FILE__);
-        string function(__PRETTY_FUNCTION__);
 
-        m1 = "Borne : ";
-        m2 = "Valeur rejetée : ";
-        m3 = "Fichier : ";
-        m4 = "Fonction : ";
-
-        cout << m1 << b << endl;
-        cout << m2 << i << endl;
-        cout << m3 << file << endl;
-        cout << m4 << function << endl;
-
-        throw 1;
+    int d;
+    d = B.getdim();
+    for(int i = 0; i<d; i++){
+        for(int j = 0; j<d; j++){
+            if (B.get(i,j) == 0){
+                return 1;
+            }
+        }
     }
+    return 0;
 }
 
-Board::Board(int x, int y, int b)
-{
-    tx = x;
-    ty = y;
-    borne = b;
-    T = new int* [x];
-    for(int i = 0; i<x; i++){
-        T[i] = new int[y];
+int cherche_fusion_hor(Board &B){
+
+    int d;
+    d = B.getdim();
+    for(int i = 0; i<d; i++){
+        for(int j = 1; j<d; j++){
+            if (B.get(i,j) == B.get(i,j-1)){
+                return 1;
+            }
+        }
     }
-    init(0);
+    return 0;
 }
-
-Board::Board(const Board &D){
-    tx = D.tx;
-    ty = D.ty;
-    borne = D.borne;
-    T = new int* [tx];
-    for(int i = 0; i<tx; i++){
-       T[i] = new int[ty];
+int cherche_fusion_vert(Board &B){
+    int d;
+    d = B.getdim();
+    for(int i = 1; i<d; i++){
+        for(int j = 0; j<d; j++){
+            if (B.get(i,j) == B.get(i-1,j)){
+                return 1;
+            }
+        }
     }
+    return 0;
+}
+void GameOver(Board &B){
 
-    for(int i = 0; i<tx; i++){
-        for(int j = 0; j<ty; j++){
-            T[i][j] = D.T[i][j];
+
+
+    if (cherche_zero(B) == 0){
+        if(cherche_fusion_hor(B) == 0){
+            if(cherche_fusion_vert(B) == 0){
+                throw "Game Over";
+
+            }
         }
     }
 }
 
+
+/*
+void ExceptionBoard(int i){
+    if (i<0){
+
+        string m1, m2, m3, m4;
+        string file(__FILE__);
+        string function(__PRETTY_FUNCTION__);
+        string stout;
+        char si[1];
+        string ssb, ssi;
+
+        m2 = "Valeur rejetée : ";
+        m3 = "Fichier : ";
+        m4 = "Fonction : ";
+        itoa(i,si,10);
+
+
+        stout = m2 + si + "/n" + m3 + file + "/n" + m4 + function;
+
+        throw stout;
+    }
+}
+*/
+Board::Board(int l, QObject *parent) : QObject(parent)
+{
+
+    dim = l;
+    T = new int* [dim];
+    for(int i = 0; i<dim; i++){
+        T[i] = new int[dim];
+    }
+    init();
+}
+
+/*
+Board::Board(const Board &D) : QObject(D)
+{
+    dim = D.dim;
+    T = new int* [dim];
+    for(int i = 0; i<dim; i++){
+       T[i] = new int[dim];
+    }
+
+    for(int i = 0; i<dim; i++){
+        for(int j = 0; j<dim; j++){
+            T[i][j] = D.T[i][j];
+        }
+    }
+}
+*/
 Board::~Board(){
 
     if(T != NULL){
-        for(int i = 0; i<tx; i++){
+        for(int i = 0; i<dim; i++){
             delete [] T[i];
         }
         delete [] T;
@@ -78,85 +136,267 @@ Board::~Board(){
 }
 
 
-void Board::init(int n){
-    ExceptionBoard(n,borne);
-    for (int i = 0; i<tx; i++){
-        for (int j = 0; j<ty; j++){
-            T[i][j] = n;
+void Board::init(){
+    for (int i = 0; i<dim; i++){
+        for (int j = 0; j<dim; j++){
+            T[i][j] = 0;
         }
     }
+    board_init();
 }
 
 void Board::set(int x, int y, int n){
 
-    ExceptionBoard(n,borne);
-    TestValeur(x,y,tx,ty);
+    //ExceptionBoard(n);
+    TestValeur(x,y,dim);
     T[x][y] = n;
 }
 
 void Board::print(){
-    for(int i = 0; i<tx; i++){
-        for (int j = 0; j<ty; j++){
+    for(int i = 0; i<dim; i++){
+        for (int j = 0; j<dim; j++){
             cout << setw(6) << T[i][j];
         }
         cout << endl;
     }
 }
 
-Board& Board::operator= (const Board &D){
-    if (this != &D){
-        for(int i = 0; i<tx; i++){
-            delete [] T[i];
-        }
-        delete [] T;
-        tx = D.tx;
-        ty = D.ty;
-
-        T = new int* [tx];
-        for(int i = 0; i<tx; i++){
-            T[i] = new int[ty];
-        }
-
-        for (int i = 0; i<tx; i++){
-            for (int j = 0; j<ty; j++){
-                T[i][j] = D.T[i][j];
-            }
-        }
-    }
-    return *this;
-}
-
-Board operator +(const Board &D1, const Board &D2){
-
-    Board D3(D1.tx, D1.ty, D1.borne + D2.borne);
-    if (D1.tx == D2.tx && D1.ty == D2.ty){
-
-
-        for(int i = 0; i<D3.tx; i++){
-            for(int j = 0; j<D3.ty; j++){
-                D3.T[i][j] = D1.T[i][j] + D2.T[i][j];
-            }
-        }
-    }
-    return D3;
-}
-
-Board& Board::operator +=(int a){
-
-    for(int i = 0; i<tx; i++){
-        for(int j = 0; j<ty; j++){
-            T[i][j] += a;
-        }
-    }
-    return *this;
-}
 
 ostream& operator <<(ostream&  sortie, const Board& D){
-    for(int i = 0; i<D.tx; i++){
-        for(int j = 0; j<D.ty; j++){
+    for(int i = 0; i<D.dim; i++){
+        for(int j = 0; j<D.dim; j++){
             sortie << setw(6) << D.T[i][j];
         }
         sortie << endl;
     }
     return sortie;
 }
+
+void Board::board_init(){
+    srand(time(NULL));
+    int x, y;
+    x = rand()%dim;
+    y = rand()%dim;
+
+    int a, b;
+    a = rand()%dim;
+    b = rand()%dim;
+    while(a == x && b == y){
+        a = rand()%dim;
+        b = rand()%dim;
+    }
+
+    int aux1, aux2, v1, v2;
+    aux1 = rand()%10;
+    if (aux1 == 9){
+        v1 = 4;
+    }
+    else{
+        v1 = 2;
+    }
+    aux2 = rand()%10;
+    if (aux2 == 9 && v1 == 2){
+        v2 = 4;
+    }
+    else{
+        v2 = 2;
+    }
+
+    set(x,y,v1);
+    set(a,b,v2);
+
+}
+
+void Board::new_tile(int change){
+    if (change == 1){
+
+    struct timeval tp;
+    gettimeofday(&tp, NULL);
+    srand(tp.tv_usec);
+    vector<int> libres;
+    int s, indpos, pos, auxval, val, x, y;
+
+    for(int i = 0; i<dim; i++){
+        for(int j = 0; j<dim; j++){
+            if (T[i][j] == 0){
+                libres.push_back(i*dim + j);
+            }
+        }
+    }
+    s = libres.size();
+    if  (s == 0){
+        throw "Couldn't put new tile";
+    }
+    indpos = rand()%s;
+    pos = libres[indpos];
+    x = pos/dim;
+    y = pos%dim;
+
+    auxval = rand()%5;
+    if (auxval == 0){
+        val = 4;
+    }
+    else{
+        val = 2;
+    }
+
+    set(x,y,val);
+    cout << *this << endl;
+
+    GameOver(*this);
+    }
+
+
+    }
+
+void Board::right(){
+
+
+    int lastval, lastpos, flagmerge, change = 0;
+    for (int i = 0; i<dim; i++){
+        lastval = -1;
+        lastpos = dim;
+        flagmerge = 0;
+        for (int j = dim-1; j>= 0; j--){
+            if (T[i][j] != 0){
+                if (T[i][j] != lastval || flagmerge == 1){
+                    lastpos--;
+                    lastval = T[i][j];
+                    if (j != lastpos){
+                        T[i][lastpos] = T[i][j];
+                        T[i][j] = 0;
+                        change = 1;
+                    }
+                    flagmerge = 0;
+                }
+
+
+                else{
+                    T[i][lastpos] = 2* T[i][lastpos];
+                    lastval = T[i][lastpos];
+                    T[i][j] = 0;
+                    flagmerge = 1;
+                    change = 1;
+                }
+            }
+        }
+    }
+    new_tile(change);
+}
+
+void Board::left(){
+
+
+    int lastval, lastpos, flagmerge, change = 0;
+    for (int i = 0; i<dim; i++){
+        lastval = -1;
+        lastpos = -1;
+        flagmerge = 0;
+        for (int j = 0; j<dim; j++){
+            if (T[i][j] != 0){
+                if (T[i][j] != lastval || flagmerge == 1){
+                    lastpos ++;
+                    lastval = T[i][j];
+                    if (j != lastpos){
+                        T[i][lastpos] = T[i][j];
+                        T[i][j] = 0;
+                        change = 1;
+                    }
+                    flagmerge = 0;
+                }
+
+
+                else{
+                    T[i][lastpos] = 2* T[i][lastpos];
+                    lastval = T[i][lastpos];
+                    T[i][j] = 0;
+                    flagmerge = 1;
+                    change = 1;
+                }
+            }
+        }
+    }
+    new_tile(change);
+}
+
+void Board::up(){
+
+
+    int lastval, lastpos, flagmerge, change = 0;
+    for (int j = 0; j<dim; j++){
+        lastval = -1;
+        lastpos = -1;
+        flagmerge = 0;
+        for (int i = 0; i<dim; i++){
+            if (T[i][j] != 0){
+                if (T[i][j] != lastval || flagmerge == 1){
+                    lastpos ++;
+                    lastval = T[i][j];
+                    if (i != lastpos){
+                        T[lastpos][j] = T[i][j];
+                        T[i][j] = 0;
+                        change = 1;
+                    }
+                    flagmerge = 0;
+                }
+
+
+                else{
+                    T[lastpos][j] = 2* T[lastpos][j];
+                    lastval = T[lastpos][j];
+                    T[i][j] = 0;
+                    flagmerge = 1;
+                    change = 1;
+                }
+            }
+        }
+    }
+    new_tile(change);
+
+}
+
+void Board::down(){
+
+
+    int lastval, lastpos, flagmerge, change = 0;
+    for (int j = 0; j<dim; j++){
+        lastval = -1;
+        lastpos = dim;
+        flagmerge = 0;
+        for (int i = dim-1; i>= 0; i--){
+            if (T[i][j] != 0){
+                if (T[i][j] != lastval || flagmerge == 1){
+                    lastpos--;
+                    lastval = T[i][j];
+                    if (i != lastpos){
+                        T[lastpos][j] = T[i][j];
+                        T[i][j] = 0;
+                        change = 1;
+                    }
+                    flagmerge = 0;
+                }
+
+
+                else{
+                    T[lastpos][j] = 2* T[lastpos][j];
+                    lastval = T[lastpos][j];
+                    T[i][j] = 0;
+                    flagmerge = 1;
+                    change = 1;
+                }
+            }
+        }
+    }
+    new_tile(change);
+
+}
+
+int Board::get(int x, int y){
+    TestValeur(x,y,dim);
+    return T[x][y];
+}
+
+int Board::getdim(){
+    return dim;
+}
+

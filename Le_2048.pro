@@ -5,7 +5,8 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    board.cpp
+    board.cpp \
+    board2.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +33,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    board.h
+    board.h \
+    board2.h
