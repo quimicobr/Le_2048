@@ -21,24 +21,31 @@ public:
     void print();
     void board_init();
     void new_tile(int change);
-    void up();
-    void right();
-    void down();
-    void left();
+    Q_INVOKABLE void up();
+    Q_INVOKABLE void right();
+    Q_INVOKABLE void down();
+    Q_INVOKABLE void left();
     int get(int x, int y);
     int getdim();
+    void update_tableau();
 
+    Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged)
+
+    QList <QString> readState();
     //Méthodes à ajouter :
     //Stocker les derniers mouvements dans un vecteur pour pouvoir retourner
 
 
 signals:
 
+    void stateChanged();
+
 public slots:
 
 private :
     int** T;
     int dim;
+    QList <QString> Tableau;
 };
 
 #endif // Board_H
