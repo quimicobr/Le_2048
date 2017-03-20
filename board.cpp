@@ -205,6 +205,13 @@ void Board::board_init(){
     set(x,y,v1);
     set(a,b,v2);
 
+    for (int i = 0; i<dim; i++){
+        for (int j = 0; j<dim; j++){
+            Tableau.append(QString::number(T[i][j]));
+        }
+    }
+
+
 }
 
 void Board::new_tile(int change){
@@ -282,6 +289,7 @@ void Board::right(){
         }
     }
     new_tile(change);
+    update_tableau();
 }
 
 void Board::left(){
@@ -317,6 +325,7 @@ void Board::left(){
         }
     }
     new_tile(change);
+    update_tableau();
 }
 
 void Board::up(){
@@ -352,6 +361,7 @@ void Board::up(){
         }
     }
     new_tile(change);
+    update_tableau();
 
 }
 
@@ -388,6 +398,7 @@ void Board::down(){
         }
     }
     new_tile(change);
+    update_tableau();
 
 }
 
@@ -400,3 +411,25 @@ int Board::getdim(){
     return dim;
 }
 
+QList <QString> Board::readState(){
+    return Tableau;
+}
+
+void Board::update_tableau(){
+
+    if (Tableau.count() == dim*dim){
+        for (int i = 0; i<dim*dim; i++){
+            Tableau.removeFirst();
+        }
+    }
+    else{
+        throw "Erreur QT: Tableau n'a pas la bonne longueur";
+    }
+
+
+    for (int i = 0; i<dim; i++){
+        for (int j = 0; j<dim; j++){
+            Tableau.append(QString::number(T[i][j]));
+        }
+    }
+}
