@@ -75,22 +75,17 @@ void GameOver(Board &B){
 /*
 void ExceptionBoard(int i){
     if (i<0){
-
         string m1, m2, m3, m4;
         string file(__FILE__);
         string function(__PRETTY_FUNCTION__);
         string stout;
         char si[1];
         string ssb, ssi;
-
         m2 = "Valeur rejetée : ";
         m3 = "Fichier : ";
         m4 = "Fonction : ";
         itoa(i,si,10);
-
-
         stout = m2 + si + "/n" + m3 + file + "/n" + m4 + function;
-
         throw stout;
     }
 }
@@ -114,7 +109,6 @@ Board::Board(const Board &D) : QObject(D)
     for(int i = 0; i<dim; i++){
        T[i] = new int[dim];
     }
-
     for(int i = 0; i<dim; i++){
         for(int j = 0; j<dim; j++){
             T[i][j] = D.T[i][j];
@@ -143,6 +137,8 @@ void Board::init(){
         }
     }
     board_init();
+    stateChanged();
+    cout << "Board created"<< endl;
 }
 
 void Board::set(int x, int y, int n){
@@ -290,6 +286,8 @@ void Board::right(){
     }
     new_tile(change);
     update_tableau();
+    stateChanged();
+    cout << "Right"<< endl;
 }
 
 void Board::left(){
@@ -326,6 +324,8 @@ void Board::left(){
     }
     new_tile(change);
     update_tableau();
+    stateChanged();
+    cout << "Left" << endl;
 }
 
 void Board::up(){
@@ -362,6 +362,8 @@ void Board::up(){
     }
     new_tile(change);
     update_tableau();
+    stateChanged();
+    cout << "Up" << endl;
 
 }
 
@@ -399,6 +401,9 @@ void Board::down(){
     }
     new_tile(change);
     update_tableau();
+    stateChanged();
+    cout << "Down" << endl;
+
 
 }
 
