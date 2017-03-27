@@ -7,6 +7,8 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("2048")
+    
+    
 
     MainForm {
         anchors.fill: parent
