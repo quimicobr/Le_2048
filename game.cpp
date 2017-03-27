@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <vector>
 #include <sys/time.h>
+#include <cmath>
 
 
 using namespace std;
@@ -13,11 +14,25 @@ Game::Game(int l)
 {
     dim = l;
     T = new Board(dim);
+    colors.push_back("");
+    colors.push_back("2");
+    colors.push_back("3");
+    colors.push_back("4");
+    colors.push_back("5");
+    colors.push_back("6");
+
+
     for (int i = 0; i<dim*dim; i++){
         QTableau.append(QString::fromStdString(" "));
+        QTableau.append(QString::fromStdString(" "));
     }
+
+    QTableau.append(QString::number(0));
+
     board_init();
     add_prev_board();
+
+
 
 
 }
@@ -83,7 +98,9 @@ void GameOver(Board *B){
 void Game::board_init(){
 
     T->init();
-    srand(time(NULL));
+    struct timeval tp;
+    gettimeofday(&tp, NULL);
+    srand(tp.tv_usec);
     int x, y;
     x = rand()%dim;
     y = rand()%dim;
@@ -111,11 +128,10 @@ void Game::board_init(){
     else{
         v2 = 2;
     }
-
-
     T->set(x,y,v1);
     T->set(a,b,v2);
     update_qtableau();
+
 }
 
 void Game::new_tile(int change){
@@ -153,6 +169,7 @@ void Game::new_tile(int change){
         T->set(x,y,val);
         add_prev_board();
         GameOver(T);
+        cout << T->get_points() << endl;
 
 
     }
@@ -160,7 +177,7 @@ void Game::new_tile(int change){
 
 void Game::right(){
 
-    int lastval, lastpos, flagmerge, change = 0, aux;
+    int lastval, lastpos, flagmerge, change = 0, aux, var_points = 0;
     for (int i = 0; i<dim; i++){
         lastval = -1;
         lastpos = dim;
@@ -186,10 +203,12 @@ void Game::right(){
                     T->set(i,j,0);
                     flagmerge = 1;
                     change = 1;
+                    var_points = var_points + aux;
                 }
             }
         }
     }
+    T->add_points(var_points);
     try{
     new_tile(change);
     }
@@ -204,7 +223,7 @@ void Game::right(){
 void Game::left(){
 
 
-    int lastval, lastpos, flagmerge, change = 0, aux, var_points;
+    int lastval, lastpos, flagmerge, change = 0, aux, var_points = 0;
     for (int i = 0; i<dim; i++){
         lastval = -1;
         lastpos = -1;
@@ -230,10 +249,12 @@ void Game::left(){
                     T->set(i,j,0);
                     flagmerge = 1;
                     change = 1;
+                    var_points = var_points + aux;
                 }
             }
         }
     }
+    T->add_points(var_points);
     try{
     new_tile(change);
     }
@@ -247,7 +268,7 @@ void Game::left(){
 void Game::up(){
 
 
-    int lastval, lastpos, flagmerge, change = 0, aux;
+    int lastval, lastpos, flagmerge, change = 0, aux, var_points = 0;
     for (int j = 0; j<dim; j++){
         lastval = -1;
         lastpos = -1;
@@ -273,10 +294,12 @@ void Game::up(){
                     T->set(i,j,0);
                     flagmerge = 1;
                     change = 1;
+                    var_points = var_points + aux;
                 }
             }
         }
     }
+    T->add_points(var_points);
     try{
     new_tile(change);
     }
@@ -290,7 +313,7 @@ void Game::up(){
 
 void Game::down(){
 
-    int lastval, lastpos, flagmerge, change = 0, aux;
+    int lastval, lastpos, flagmerge, change = 0, aux, var_points = 0;
     for (int j = 0; j<dim; j++){
         lastval = -1;
         lastpos = dim;
@@ -316,10 +339,12 @@ void Game::down(){
                     T->set(i,j,0);
                     flagmerge = 1;
                     change = 1;
+                    var_points = var_points + aux;
                 }
             }
         }
     }
+    T->add_points(var_points);
     try{
     new_tile(change);
     }
@@ -337,20 +362,36 @@ QList <QString> Game::readState() const{
 
 void Game::update_qtableau(){
 
-    if (QTableau.count() == dim*dim){
+    if (QTableau.count() == 2*dim*dim + 1){
         for (int i = 0; i<dim*dim; i++){
             QTableau.removeFirst();
+            QTableau.removeFirst();
         }
+        QTableau.removeFirst();
         for (int i = 0; i<dim; i++){
             for (int j = 0; j<dim; j++){
                 if (T->get(i,j)){
                     QTableau.append(QString::number(T->get(i,j)));
+
                 }
                 else{
                     QTableau.append(QString::fromStdString(" "));
                 }
             }
         }
+        for (int i = 0; i<dim; i++){
+            for (int j = 0; j<dim; j++){
+                if (T->get(i,j)){
+                    QTableau.append(QString::fromStdString(get_color(T->get(i,j))));
+
+                }
+                else{
+                    QTableau.append(QString::fromStdString(" "));
+                }
+            }
+        }
+
+        QTableau.append(QString::number(T->get_points()));
     }
     else{
         throw "Erreur QT: QTableau n'a pas la bonne longueur";
@@ -380,9 +421,12 @@ void Game::add_prev_board(){
 void Game::go_back(){
 
     int taille = Previous.size();
-    *T = Previous[taille - 2];
-    Previous.pop_back();
-    update_qtableau();
+    if (taille > 1){
+        *T = Previous[taille - 2];
+        Previous.pop_back();
+        update_qtableau();
+        cout << T->get_points() << endl;
+    }
 
 }
 
@@ -398,4 +442,20 @@ void Game::print_board(){
     T->print();
 }
 
+string Game::get_color(int n){
+
+    int valmax, ind;
+    valmax = colors.size() - 1;
+    double ndouble = double(n);
+    double inddouble;
+    inddouble = log2(ndouble);
+    ind = int(inddouble + 0.5);
+    ind = ind - 1;
+    if (ind <= valmax){
+        return colors[ind];
+    }
+    else{
+        return colors[valmax];
+    }
+}
 

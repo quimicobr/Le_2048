@@ -84,6 +84,7 @@ Board::~Board(){
 
 
 void Board::init(){
+    points = 0;
     for (int i = 0; i<dim; i++){
         for (int j = 0; j<dim; j++){
             T[i][j] = 0;
@@ -115,6 +116,7 @@ Board& Board::operator= (const Board &D){
         }
         delete [] T;
         dim = D.dim;
+        points = D.points;
 
         T = new int* [dim];
         for(int i = 0; i<dim; i++){
@@ -127,6 +129,7 @@ Board& Board::operator= (const Board &D){
             }
         }
     }
+
     return *this;
 }
 
@@ -152,3 +155,14 @@ void Board::print(){
 
 }
 
+void Board::add_points(int var_points){
+    points = points + var_points;
+}
+
+void Board::set_points(int np){
+    points = np;
+}
+
+int Board::get_points(){
+    return points;
+}

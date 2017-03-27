@@ -24,17 +24,15 @@ public:
     void update_qtableau(); //Game
     void print_Qlist(); //Game
     void add_prev_board(); //Game
-    void go_back(); //Game
+    Q_INVOKABLE void go_back(); //Game
     void print_prev_size(); //Game
     Board *get_board();
     void print_board();
+    string get_color(int n);
 
     Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged); //Game
 
     QList <QString> readState() const; //Game
-
-    //Méthodes à ajouter :
-    //Stocker les derniers mouvements dans un vecteur pour pouvoir retourner
 
 signals:
 
@@ -45,6 +43,8 @@ private:
     vector <Board> Previous;
     int dim;
     Board* T;
+    int points;
+    vector <string> colors;
 };
 
 #endif // GAME_H

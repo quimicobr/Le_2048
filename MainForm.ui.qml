@@ -9,9 +9,12 @@ Item {
     width: 640
     height: 480
 
+    property alias buttonNewGame: buttonNewGame
+    property alias buttonUndo: buttonUndo
+
     Rectangle {
         id: rectangleBackground
-        color: "#f0eb8f"
+        color: "#fdf9a7"
         border.width: 0
         anchors.fill: parent
 
@@ -84,9 +87,7 @@ Item {
                             }
                         }
                     }
-
                 }
-
             }
         }
 
@@ -96,9 +97,9 @@ Item {
             height: 82
             color: "#020202"
             text: qsTr("2048")
-            styleColor: "#eb2802"
+            styleColor: "#f8cb2c"
             font.italic: true
-            font.family: "Tahoma"
+            font.family: "Verdana"
             font.wordSpacing: 0
             font.weight: Font.Normal
             style: Text.Outline
@@ -114,25 +115,24 @@ Item {
             font.pixelSize: 50
         }
 
-        Button {
-            id: buttonNewGame
-            x: 484
-            width: 148
-            height: 26
-            text: qsTr("New game")
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            anchors.top: parent.top
-            anchors.topMargin: 10
+        Rectangle {
+            id: rectangleScore
+            x: 355
+            y: 10
+            width: 81
+            height: 74
+            color: "#bebdbd"
+            radius: 15
         }
 
         Text {
             id: scorevalue
             x: 710
-            y: 74
+            y: 52
             width: 81
             height: 47
-            text: qsTr("Text")
+            color: "#ffffff"
+            text: vueBoard.state[32]
             font.bold: true
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -145,19 +145,45 @@ Item {
 
         Text {
             id: scoretext
+            x: 710
+            y: 30
             width: 81
             height: 16
+            color: "#ffffff"
             text: qsTr("Score:")
             anchors.left: parent.left
             anchors.leftMargin: 355
             anchors.top: parent.top
-            anchors.topMargin: 15
+            anchors.topMargin: 17
             font.italic: false
             font.bold: true
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: 14
         }
+
+        Button {
+            id: buttonNewGame
+            x: 484
+            width: 148
+            height: 26
+            text: qsTr("New game")
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.top: parent.top
+            anchors.topMargin: 10
+        }
+
+        Button {
+            id: buttonUndo
+            x: 562
+            text: qsTr("Undo")
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.top: parent.top
+            anchors.topMargin: 58
+        }
+
 
     }
 

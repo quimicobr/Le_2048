@@ -21,6 +21,9 @@ public:
     void set(int x, int y, int n); //Board
     void print();
 
+    void add_points(int var_points);
+    void set_points(int np);
+    int get_points();
     int get(int x, int y); //Board
     int getdim(); //Board
 
@@ -28,6 +31,7 @@ public:
 private :
     int** T;
     int dim;
+    int points;
 };
 
 #endif // Board_H
