@@ -2,50 +2,32 @@
 #define BOARD_H
 
 #include <iostream>
-#include <QObject>
 
 using namespace std;
 
-class Board : public QObject
+class Board
 {
-    Q_OBJECT
 
 public:
-    explicit Board(int l, QObject *parent = 0);
-    //Board(const Board &D);
-    ~Board();
-    friend ostream& operator<< (ostream& sortie, const Board &D);
+    //Creer classe board e classe game
 
-    void init();
-    void set(int x, int y, int n);
+    Board(int l); //Board
+    Board(const Board &D); //Board
+    ~Board(); //Board
+    friend ostream& operator<< (ostream& sortie, const Board &D); //Board
+    Board& operator= (const Board &D);
+
+    void init(); //Board
+    void set(int x, int y, int n); //Board
     void print();
-    void board_init();
-    void new_tile(int change);
-    Q_INVOKABLE void up();
-    Q_INVOKABLE void right();
-    Q_INVOKABLE void down();
-    Q_INVOKABLE void left();
-    int get(int x, int y);
-    int getdim();
-    void update_tableau();
 
-    Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged)
+    int get(int x, int y); //Board
+    int getdim(); //Board
 
-    QList <QString> readState();
-    //Méthodes à ajouter :
-    //Stocker les derniers mouvements dans un vecteur pour pouvoir retourner
-
-
-signals:
-
-    void stateChanged();
-
-public slots:
 
 private :
     int** T;
     int dim;
-    QList <QString> Tableau;
 };
 
 #endif // Board_H

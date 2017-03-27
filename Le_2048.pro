@@ -6,7 +6,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     board.cpp \
-    board2.cpp
+    board2.cpp \
+    game.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,4 +35,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     board.h \
-    board2.h
+    board2.h \
+    game.h

@@ -29,7 +29,9 @@ Item {
             border.color: "#00000000"
             border.width: 0
 
+            property alias grid1 : grid1
             Grid {
+                id: grid1
                 width: 352
                 height: 352
                 anchors.top: parent.top
@@ -38,22 +40,329 @@ Item {
                 anchors.leftMargin: 4
                 columns: 4
                 spacing: 4
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: qsTr("Text"); font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[0];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[1];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[2];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[3];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[4];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[5];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[6];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[7];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[8];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[9];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[10];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[11];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[12];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[13];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[14];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+                Rectangle {
+                    color: "#8c8c98";
+                    radius: 10;
+                    width: 85;
+                    height: 85;
+                    Rectangle {
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Text {
+                            text: vueBoard.state[15];
+                            font.bold: true;
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignHCenter;
+                            anchors.fill: parent;
+                            font.pixelSize: 24; }
+                    }
+                }
+
+
+
+
+                  /*switch (event.key) {
+                    case Qt.Key_Up:
+                      vueBoard.up();
+                      break;
+                    case Qt.Key_Down:
+                      vueBoard.down();
+                      break;
+                    case Qt.Key_Left:
+                        vueBoard.left();
+                        break;
+                    case Qt.Key_Right:
+                        vueBoard.right();
+                        break;}}*/
+
             }
         }
 
@@ -124,48 +433,6 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: 14
-        }
-
-        Image {
-            id: imageUndo
-            x: 482
-            width: 70
-            height: 47
-            anchors.right: parent.right
-            anchors.rightMargin: 88
-            anchors.top: parent.top
-            anchors.topMargin: 45
-            source: "setaesquerda.png"
-
-            MouseArea {
-                id: mouseAreaUndo
-                anchors.rightMargin: 8
-                anchors.bottomMargin: 8
-                anchors.leftMargin: 8
-                anchors.topMargin: 8
-                anchors.fill: parent
-            }
-        }
-
-        Image {
-            id: imageRedo
-            x: 564
-            width: 70
-            height: 47
-            anchors.right: parent.right
-            anchors.rightMargin: 6
-            anchors.top: parent.top
-            anchors.topMargin: 45
-            source: "setadireita.png"
-
-            MouseArea {
-                id: mouseAreaRedo
-                anchors.fill: parent
-                anchors.bottomMargin: 8
-                anchors.topMargin: 8
-                anchors.rightMargin: 8
-                anchors.leftMargin: 8
-            }
         }
 
     }

@@ -2,39 +2,77 @@
 #include <QQmlApplicationEngine>
 #include <ctime>
 #include <sys/time.h>
+#include <QtQml>
 
 #include "board.h"
 #include "board2.h"
+#include "game.h"
 
 int main(int argc, char *argv[])
 {
-    //QGuiApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
+    Game  G(4);
 
-    //QQmlApplicationEngine engine;
-    //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("vueBoard", &G);
 
-    Board B(4);
-    B.init();
-    cout << B << endl;
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    while(1){
+
+
+
+/*
+    Game G(4);
+    G.print_board();
+
+
+    G.right();
+    G.print_board();
+
+    G.up();
+    G.print_board();
+
+    G.left();
+    G.print_board();
+
+    G.down();
+    G.print_board();
+
+    G.go_back();
+    G.print_board();
+
+    G.go_back();
+    G.print_board();
+
+    G.right();
+    G.print_board();*/
+
+
+
+    /*while(1){
         try{
-        B.right();
+        G.right();
+        cout << "Moved Right" << endl;
         //cout << B << endl;
-        B.up();
+        G.up();
         //cout << B << endl;
-        B.left();
+        G.left();
         //cout << B << endl;
-        B.down();
+        G.down();
         //cout << B << endl;
         }
         catch(const char* message){
             cout << message << endl;
+            G.print_Qlist();
+            //B.go_back();
+            //cout << endl << B << endl;
+            G.print_prev_size();
             return 0;
         }
     }
+*/
 
-    //return app.exec();
-    return 0;
+    return app.exec();
+    //return 0;
 }
 
