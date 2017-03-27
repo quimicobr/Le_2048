@@ -9,11 +9,33 @@ Item {
     width: 640
     height: 480
 
+    property alias buttonNewGame: buttonNewGame
+    property alias buttonUndo: buttonUndo
+
     Rectangle {
         id: rectangleBackground
-        color: "#f0eb8f"
+        color: "#fdf9a7"
         border.width: 0
         anchors.fill: parent
+
+        focus: true
+        Keys.onPressed:  {
+          switch (event.key) {
+            case Qt.Key_Up:
+              vueBoard.up();
+              break;
+            case Qt.Key_Down:
+              vueBoard.down();
+              break;
+            case Qt.Key_Left:
+              vueBoard.left();
+                break;
+            case Qt.Key_Right:
+              vueBoard.right();
+                break;
+
+          }
+        }
 
         Rectangle {
             id: thedamier
@@ -31,6 +53,7 @@ Item {
 
             property alias grid1 : grid1
             Grid {
+
                 id: grid1
                 width: 352
                 height: 352
@@ -40,45 +63,32 @@ Item {
                 anchors.leftMargin: 4
                 columns: 4
                 spacing: 4
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[0]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[1]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[2]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[3]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[4]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[5]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[6]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[7]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[8]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[9]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[10]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[11]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[12]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[13]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[14]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
-                Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Rectangle { color: "#8c8c98"; radius: 10; width: 85; height: 85; Text { text: vueBoard.state[15]; font.bold: true; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; anchors.fill: parent; font.pixelSize: 24; } } }
+                Repeater{
+                    model: 16
+                    Rectangle {
+                        id: rectan
+                        color: "#8c8c98";
+                        radius: 10;
+                        width: 85;
+                        height: 85;
+                        Rectangle {
+                            color: "#8c8c98";
+                            radius: 10;
+                            width: 85;
+                            height: 85;
+                            Text {
+                                text: vueBoard.state[index];
+                                font.bold: true;
+                                verticalAlignment: Text.AlignVCenter;
+                                horizontalAlignment: Text.AlignHCenter;
+                                anchors.fill: parent;
+                                font.pixelSize: 24;
 
-                /*Keys.onUpPressed: vueBoard.up()
+                            }
+                        }
+                    }
 
-                Keys.onDownPressed: vueBoard.down()
-
-                Keys.onLeftPressed: vueBoard.left()
-
-                Keys.onRightPressed: vueBoard.right()*/
-
-
-                  /*switch (event.key) {
-                    case Qt.Key_Up:
-                      vueBoard.up();
-                      break;
-                    case Qt.Key_Down:
-                      vueBoard.down();
-                      break;
-                    case Qt.Key_Left:
-                        vueBoard.left();
-                        break;
-                    case Qt.Key_Right:
-                        vueBoard.right();
-                        break;}}*/
+                }
 
             }
         }
@@ -89,9 +99,9 @@ Item {
             height: 82
             color: "#020202"
             text: qsTr("2048")
-            styleColor: "#eb2802"
+            styleColor: "#f8cb2c"
             font.italic: true
-            font.family: "Tahoma"
+            font.family: "Verdana"
             font.wordSpacing: 0
             font.weight: Font.Normal
             style: Text.Outline
@@ -107,24 +117,23 @@ Item {
             font.pixelSize: 50
         }
 
-        Button {
-            id: buttonNewGame
-            x: 484
-            width: 148
-            height: 26
-            text: qsTr("New game")
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            anchors.top: parent.top
-            anchors.topMargin: 10
+        Rectangle {
+            id: rectangleScore
+            x: 355
+            y: 10
+            width: 81
+            height: 74
+            color: "#bebdbd"
+            radius: 15
         }
 
         Text {
             id: scorevalue
             x: 710
-            y: 74
+            y: 52
             width: 81
             height: 47
+            color: "#ffffff"
             text: qsTr("Text")
             font.bold: true
             horizontalAlignment: Text.AlignHCenter
@@ -138,19 +147,48 @@ Item {
 
         Text {
             id: scoretext
+            x: 710
+            y: 30
             width: 81
             height: 16
+            color: "#ffffff"
             text: qsTr("Score:")
             anchors.left: parent.left
             anchors.leftMargin: 355
             anchors.top: parent.top
-            anchors.topMargin: 15
+            anchors.topMargin: 17
             font.italic: false
             font.bold: true
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font.pixelSize: 14
         }
+
+        Button {
+            id: buttonNewGame
+            x: 484
+            width: 148
+            height: 26
+            text: qsTr("New game")
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.top: parent.top
+            anchors.topMargin: 10
+        }
+
+        Button {
+            id: buttonUndo
+            x: 562
+            text: qsTr("Undo")
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.top: parent.top
+            anchors.topMargin: 58
+        }
+
+
+
+
 
     }
 

@@ -1,6 +1,8 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
+import QtQuick 2.5
+import QtQuick.Window 2.2
 
 ApplicationWindow {
     visible: true
@@ -10,19 +12,8 @@ ApplicationWindow {
 
     MainForm {
         anchors.fill: parent
+        buttonNewGame.onClicked: vueBoard.board_init();
+        buttonUndo.onClicked: vueBoard.go_back();
 
     }
-
-    Grid {
-
-          Keys.onUpPressed: cout << "UP" << endl;
-
-          Keys.onDownPressed: vueBoard.down()
-
-          Keys.onLeftPressed: vueBoard.left()
-
-          Keys.onRightPressed: vueBoard.right()
-
-    }
-
 }
