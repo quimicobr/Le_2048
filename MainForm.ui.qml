@@ -15,6 +15,25 @@ Item {
         border.width: 0
         anchors.fill: parent
 
+        focus: true
+        Keys.onPressed:  {
+          switch (event.key) {
+            case Qt.Key_Up:
+              vueBoard.up();
+              break;
+            case Qt.Key_Down:
+              vueBoard.down();
+              break;
+            case Qt.Key_Left:
+              vueBoard.left();
+                break;
+            case Qt.Key_Right:
+              vueBoard.right();
+                break;
+
+          }
+        }
+
         Rectangle {
             id: thedamier
             x: 124
@@ -31,6 +50,7 @@ Item {
 
             property alias grid1 : grid1
             Grid {
+
                 id: grid1
                 width: 352
                 height: 352
@@ -43,6 +63,7 @@ Item {
                 Repeater{
                     model: 16
                     Rectangle {
+                        id: rectan
                         color: "#8c8c98";
                         radius: 10;
                         width: 85;
@@ -58,7 +79,9 @@ Item {
                                 verticalAlignment: Text.AlignVCenter;
                                 horizontalAlignment: Text.AlignHCenter;
                                 anchors.fill: parent;
-                                font.pixelSize: 24;}
+                                font.pixelSize: 24;
+
+                            }
                         }
                     }
 

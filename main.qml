@@ -8,13 +8,12 @@ ApplicationWindow {
     height: 480
     title: qsTr("2048")
 
+
+
+
     MainForm {
         anchors.fill: parent
-        Grid {
-            id: grid1
-
-
-        }
     }
-
 }
+
+

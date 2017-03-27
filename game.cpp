@@ -13,8 +13,12 @@ Game::Game(int l)
 {
     dim = l;
     T = new Board(dim);
+    for (int i = 0; i<dim*dim; i++){
+        QTableau.append(QString::fromStdString(" "));
+    }
     board_init();
     add_prev_board();
+
 
 }
 
@@ -78,6 +82,7 @@ void GameOver(Board *B){
 
 void Game::board_init(){
 
+    T->init();
     srand(time(NULL));
     int x, y;
     x = rand()%dim;
@@ -110,22 +115,7 @@ void Game::board_init(){
 
     T->set(x,y,v1);
     T->set(a,b,v2);
-
-    for (int i = 0; i<dim; i++){
-        for (int j = 0; j<dim; j++)
-        {
-            if (T->get(i,j)){
-                QTableau.append(QString::number(T->get(i,j)));
-            }
-            else{
-                QTableau.append(QString::fromStdString(" "));
-            }
-
-        }
-    }
-    stateChanged();
-
-
+    update_qtableau();
 }
 
 void Game::new_tile(int change){
@@ -170,8 +160,6 @@ void Game::new_tile(int change){
 
 void Game::right(){
 
-
-    cout << "Right called" << endl;
     int lastval, lastpos, flagmerge, change = 0, aux;
     for (int i = 0; i<dim; i++){
         lastval = -1;
@@ -202,14 +190,21 @@ void Game::right(){
             }
         }
     }
+    try{
     new_tile(change);
+    }
+    catch(const char* message){
+        cout << message << endl;
+        board_init();
+    }
+
     update_qtableau();
 }
 
 void Game::left(){
 
 
-    int lastval, lastpos, flagmerge, change = 0, aux;
+    int lastval, lastpos, flagmerge, change = 0, aux, var_points;
     for (int i = 0; i<dim; i++){
         lastval = -1;
         lastpos = -1;
@@ -239,13 +234,18 @@ void Game::left(){
             }
         }
     }
+    try{
     new_tile(change);
+    }
+    catch(const char* message){
+        cout << message << endl;
+        board_init();
+    }
     update_qtableau();
 }
 
 void Game::up(){
 
-    cout << "UP" << endl;
 
     int lastval, lastpos, flagmerge, change = 0, aux;
     for (int j = 0; j<dim; j++){
@@ -277,13 +277,18 @@ void Game::up(){
             }
         }
     }
+    try{
     new_tile(change);
+    }
+    catch(const char* message){
+        cout << message << endl;
+        board_init();
+    }
     update_qtableau();
 
 }
 
 void Game::down(){
-
 
     int lastval, lastpos, flagmerge, change = 0, aux;
     for (int j = 0; j<dim; j++){
@@ -315,12 +320,18 @@ void Game::down(){
             }
         }
     }
+    try{
     new_tile(change);
+    }
+    catch(const char* message){
+        cout << message << endl;
+        board_init();
+    }
     update_qtableau();
 
 }
 
-QList <QString> Game::readState(){
+QList <QString> Game::readState() const{
     return QTableau;
 }
 
@@ -330,17 +341,23 @@ void Game::update_qtableau(){
         for (int i = 0; i<dim*dim; i++){
             QTableau.removeFirst();
         }
+        for (int i = 0; i<dim; i++){
+            for (int j = 0; j<dim; j++){
+                if (T->get(i,j)){
+                    QTableau.append(QString::number(T->get(i,j)));
+                }
+                else{
+                    QTableau.append(QString::fromStdString(" "));
+                }
+            }
+        }
     }
     else{
         throw "Erreur QT: QTableau n'a pas la bonne longueur";
     }
 
 
-    for (int i = 0; i<dim; i++){
-        for (int j = 0; j<dim; j++){
-            QTableau.append(QString::number(T->get(i,j)));
-        }
-    }
+
     stateChanged();
 }
 

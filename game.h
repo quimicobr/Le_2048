@@ -15,7 +15,7 @@ class Game : public QObject
 public:
     explicit Game(int l);
     ~Game();
-    void board_init(); //Game
+    Q_INVOKABLE void board_init(); //Game
     void new_tile(int change); //Game
     Q_INVOKABLE void up(); //Game
     Q_INVOKABLE void right(); //Game
@@ -31,7 +31,7 @@ public:
 
     Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged); //Game
 
-    QList <QString> readState(); //Game
+    QList <QString> readState() const; //Game
 
     //Méthodes à ajouter :
     //Stocker les derniers mouvements dans un vecteur pour pouvoir retourner

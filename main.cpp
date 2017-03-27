@@ -11,7 +11,7 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-    Game  G(4);
+    Game G(4);
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("vueBoard", &G);
