@@ -29,6 +29,8 @@ public:
     Board *get_board();
     void print_board();
     string get_color(int n);
+    void erase_Previous();
+
 
     Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged); //Game
 

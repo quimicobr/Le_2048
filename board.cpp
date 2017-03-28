@@ -67,6 +67,7 @@ Board::Board(const Board &D)
             T[i][j] = D.T[i][j];
         }
     }
+    points = D.points;
 }
 
 Board::~Board(){

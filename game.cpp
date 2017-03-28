@@ -14,12 +14,37 @@ Game::Game(int l)
 {
     dim = l;
     T = new Board(dim);
-    colors.push_back("");
-    colors.push_back("2");
-    colors.push_back("3");
-    colors.push_back("4");
-    colors.push_back("5");
-    colors.push_back("6");
+    colors.push_back("#8c8c98");
+    /*colors.push_back("#fef4f4");
+    colors.push_back("#beac88");
+    colors.push_back("#f8b650");
+    colors.push_back("#f1b7b3");
+    colors.push_back("#f15252");
+    colors.push_back("#f7c81f");
+    colors.push_back("#f7f41f");
+    colors.push_back("#98891a");
+    colors.push_back("#fb5b6b");
+    colors.push_back("#c3c35b");
+    colors.push_back("#fcfc07");
+    colors.push_back("#7f7c25");*/
+
+    colors.push_back("#739EAC");//2
+    colors.push_back("#55766F");//4
+    colors.push_back("#B99F79");//8
+    colors.push_back("#FBA950");//16
+    colors.push_back("#F68E25");//32
+    colors.push_back("#D55F19");//64
+
+    colors.push_back("#A72404");//128
+
+    colors.push_back("#D54500");//256
+
+    colors.push_back("#FFB31F");//512
+    colors.push_back("#FFDA1F");//1024
+    colors.push_back("#FCFF1F");//2048
+
+    colors.push_back("#C7EDE4");//4096
+    colors.push_back("#009DDC");//8192
 
 
     for (int i = 0; i<dim*dim; i++){
@@ -30,7 +55,7 @@ Game::Game(int l)
     QTableau.append(QString::number(0));
 
     board_init();
-    add_prev_board();
+
 
 
 
@@ -98,6 +123,8 @@ void GameOver(Board *B){
 void Game::board_init(){
 
     T->init();
+
+    erase_Previous();
     struct timeval tp;
     gettimeofday(&tp, NULL);
     srand(tp.tv_usec);
@@ -131,6 +158,7 @@ void Game::board_init(){
     T->set(x,y,v1);
     T->set(a,b,v2);
     update_qtableau();
+    add_prev_board();
 
 }
 
@@ -169,7 +197,6 @@ void Game::new_tile(int change){
         T->set(x,y,val);
         add_prev_board();
         GameOver(T);
-        cout << T->get_points() << endl;
 
 
     }
@@ -381,13 +408,7 @@ void Game::update_qtableau(){
         }
         for (int i = 0; i<dim; i++){
             for (int j = 0; j<dim; j++){
-                if (T->get(i,j)){
-                    QTableau.append(QString::fromStdString(get_color(T->get(i,j))));
-
-                }
-                else{
-                    QTableau.append(QString::fromStdString(" "));
-                }
+                QTableau.append(QString::fromStdString(get_color(T->get(i,j))));
             }
         }
 
@@ -403,10 +424,11 @@ void Game::update_qtableau(){
 }
 
 void Game::print_Qlist(){
-    if (QTableau.count() == dim*dim){
-        for (int i = 0; i<dim*dim; i++){
-            cout << QTableau.count() << " ";
+    if (QTableau.count() == 2*dim*dim + 1){
+        for (int i = 0; i<(2*dim*dim + 1); i++){
+            cout << QTableau[i].toStdString() << " ";
         }
+        cout << endl;
     }
     else{
         cout << "QTableau n'a pas la bonne longueur";
@@ -425,7 +447,6 @@ void Game::go_back(){
         *T = Previous[taille - 2];
         Previous.pop_back();
         update_qtableau();
-        cout << T->get_points() << endl;
     }
 
 }
@@ -444,18 +465,32 @@ void Game::print_board(){
 
 string Game::get_color(int n){
 
-    int valmax, ind;
-    valmax = colors.size() - 1;
-    double ndouble = double(n);
-    double inddouble;
-    inddouble = log2(ndouble);
-    ind = int(inddouble + 0.5);
-    ind = ind - 1;
-    if (ind <= valmax){
-        return colors[ind];
+    if (n != 0){
+        int valmax, ind;
+        valmax = colors.size() - 1;
+        double ndouble = double(n);
+        double inddouble;
+        inddouble = log2(ndouble);
+        ind = int(inddouble + 0.5);
+        if (ind <= valmax){
+            return colors[ind];
+        }
+        else{
+            return colors[valmax];
+        }
     }
     else{
-        return colors[valmax];
+        return colors[0];
+    }
+
+
+}
+
+void Game::erase_Previous(){
+    int s;
+    s = Previous.size();
+    for (int i = 0; i<s; i++){
+        Previous.pop_back();
     }
 }
 

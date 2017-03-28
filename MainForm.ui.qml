@@ -18,24 +18,7 @@ Item {
         border.width: 0
         anchors.fill: parent
 
-        focus: true
-        Keys.onPressed:  {
-          switch (event.key) {
-            case Qt.Key_Up:
-              vueBoard.up();
-              break;
-            case Qt.Key_Down:
-              vueBoard.down();
-              break;
-            case Qt.Key_Left:
-              vueBoard.left();
-                break;
-            case Qt.Key_Right:
-              vueBoard.right();
-                break;
 
-          }
-        }
 
         Rectangle {
             id: thedamier
@@ -54,6 +37,7 @@ Item {
             property alias grid1 : grid1
             Grid {
 
+
                 id: grid1
                 width: 352
                 height: 352
@@ -63,7 +47,26 @@ Item {
                 anchors.leftMargin: 4
                 columns: 4
                 spacing: 4
+                focus: true
+                Keys.onPressed:  {
+                  switch (event.key) {
+                    case Qt.Key_Up:
+                      vueBoard.up();
+                      break;
+                    case Qt.Key_Down:
+                      vueBoard.down();
+                      break;
+                    case Qt.Key_Left:
+                      vueBoard.left();
+                        break;
+                    case Qt.Key_Right:
+                      vueBoard.right();
+                        break;
+
+                  }
+                }
                 Repeater{
+                    transformOrigin: Item.Right
                     model: 16
                     Rectangle {
                         id: rectan
@@ -72,7 +75,7 @@ Item {
                         width: 85;
                         height: 85;
                         Rectangle {
-                            color: "#8c8c98";
+                            color: vueBoard.state[index+16];
                             radius: 10;
                             width: 85;
                             height: 85;
@@ -82,7 +85,8 @@ Item {
                                 verticalAlignment: Text.AlignVCenter;
                                 horizontalAlignment: Text.AlignHCenter;
                                 anchors.fill: parent;
-                                font.pixelSize: 24;
+                                font.pixelSize: 36;
+                                font.family: "Arial Rounded MT Bold"
 
                             }
                         }
@@ -98,8 +102,8 @@ Item {
             color: "#020202"
             text: qsTr("2048")
             styleColor: "#f8cb2c"
-            font.italic: true
-            font.family: "Verdana"
+            //font.italic: true
+            font.family: "Arial Unicode MS"
             font.wordSpacing: 0
             font.weight: Font.Normal
             style: Text.Outline
