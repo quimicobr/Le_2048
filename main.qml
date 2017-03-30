@@ -6,14 +6,22 @@ import QtQuick.Window 2.2
 
 ApplicationWindow {
     visible: true
-    width: 640
-    height: 480
+    width: 480
+    height: 600
     title: qsTr("2048")
+    maximumHeight: 600
+    maximumWidth: 480
+    minimumHeight: 600
+    minimumWidth: 480
 
     MainForm {
         anchors.fill: parent
-        buttonNewGame.onClicked: vueBoard.board_init();
-        buttonUndo.onClicked: vueBoard.go_back();
+        mouseAreaNewGame.onClicked: vueBoard.board_init();
+        mouseAreaUndo.onClicked: vueBoard.go_back();
+        //mouseAreaOptions.onClicked: call new window
 
     }
+
 }
+
+
