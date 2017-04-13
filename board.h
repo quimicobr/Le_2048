@@ -17,7 +17,7 @@ public:
     friend ostream& operator<< (ostream& sortie, const Board &D); //Board
     Board& operator= (const Board &D);
 
-    void init(); //Board
+    void init(int l); //Board
     void set(int x, int y, int n); //Board
     void print();
 

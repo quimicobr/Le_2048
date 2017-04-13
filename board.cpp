@@ -45,7 +45,7 @@ Board::Board(int l)
     for(int i = 0; i<dim; i++){
         T[i] = new int[dim];
     }
-    init();
+    init(dim);
 }
 
 
@@ -79,7 +79,8 @@ Board::~Board(){
 }
 
 
-void Board::init(){
+void Board::init(int l){
+    dim = l;
     points = 0;
     for (int i = 0; i<dim; i++){
         for (int j = 0; j<dim; j++){

@@ -15,7 +15,7 @@ class Game : public QObject
 public:
     explicit Game(int l);
     ~Game();
-    Q_INVOKABLE void board_init(); //Game
+    Q_INVOKABLE void board_init(int l); //Game
     void new_tile(int change); //Game
     Q_INVOKABLE void up(); //Game
     Q_INVOKABLE void right(); //Game
@@ -32,7 +32,8 @@ public:
     void erase_Previous();
     void newhighscore();
     int thehighscore();
-
+    Q_INVOKABLE int get_dim();
+    Q_INVOKABLE int get_taille();
 
     Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged); //Game
 

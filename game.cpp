@@ -57,7 +57,7 @@ Game::Game(int l)
 
     QTableau.append(QString::number(0));
 
-    board_init();
+    board_init(dim);
 
 
 
@@ -122,9 +122,10 @@ void GameOver(Board *B){
     }
 }
 
-void Game::board_init(){
+void Game::board_init(int l){
 
-    T->init();
+    dim = l;
+    T->init(dim);
 
     erase_Previous();
     struct timeval tp;
@@ -164,6 +165,14 @@ void Game::board_init(){
 
     datapoints = thehighscore();
 
+}
+
+int Game::get_dim( ){
+    return dim;
+}
+
+int Game::get_taille( ){
+    return dim*dim;
 }
 
 void Game::new_tile(int change){
@@ -246,7 +255,7 @@ void Game::right(){
     }
     catch(const char* message){
         cout << message << endl;
-        board_init();
+        board_init(dim);
     }
 
     gamepoints = var_points;
@@ -295,7 +304,7 @@ void Game::left(){
     catch(const char* message){
         cout << message << endl;
         cestlafin();
-        //board_init();
+        //board_init(dim);
     }
 
     gamepoints = var_points;
@@ -345,7 +354,7 @@ void Game::up(){
     catch(const char* message){
         cout << message << endl;
         cestlafin();
-        //board_init();
+        //board_init(dim);
     }
 
     gamepoints = var_points;
@@ -397,7 +406,7 @@ void Game::down(){
     catch(const char* message){
         cout << message << endl;
         cestlafin();
-        //board_init();
+        //board_init(dim);
     }
 
     gamepoints = var_points;

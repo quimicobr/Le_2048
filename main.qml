@@ -19,22 +19,28 @@ ApplicationWindow {
 
     MainForm {
         anchors.fill: parent
-        mouseAreaNewGame.onClicked: vueBoard.board_init();
+        mouseAreaNewGame.onClicked: vueBoard.board_init(vueBoard.get_dim());
         mouseAreaUndo.onClicked: vueBoard.go_back();
 
 
-        mouseAreaOptions.onClicked: {
+        //Il faut encore lie au signal cestlafin et ajouter les commandes aux buttons
+        /*{
         var component = Qt.createComponent("gameover.qml")
         var window    = component.createObject(messagegameover)
         window.show()
-        }
-
+        }*/
 }
-         /*{
-            mouseAreaNewGame.onClicked: vueBoard.board_init();
-        }
-    }
-*/
+    /*Rectangle{
+        id: rectangleBackground
 
+        var component = Qt.createComponent("gameover.qml")
+        if enabled {
+        var window    = component.createObject(messagegameover)
+        window.show()
+        }*/
 }
+
+
+
+
 

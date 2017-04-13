@@ -23,6 +23,12 @@ Item {
         border.width: 0
         anchors.fill: parent
 
+        /*if enabled {
+        var component = Qt.createComponent("gameover.qml")
+        var window    = component.createObject(messagegameover)
+        window.show()
+        }*/
+
 
 
         Rectangle {
@@ -50,10 +56,10 @@ Item {
                 anchors.topMargin: 4
                 anchors.left: parent.left
                 anchors.leftMargin: 4
-                columns: 4
+                columns: vueBoard.get_dim()
                 spacing: 4
                 focus: true
-                /*Keys.onPressed:  {
+                Keys.onPressed:  {
                   switch (event.key) {
                     case Qt.Key_Up:
                       vueBoard.up();
@@ -69,29 +75,29 @@ Item {
                         break;
 
                   }
-                }*/
+                }
 
                 Repeater{
                     transformOrigin: Item.Right
-                    model: 16
+                    model: vueBoard.get_taille();
                     Rectangle {
                         id: rectan
                         color: "#8c8c98";
                         radius: 10;
-                        width: 85;
-                        height: 85;
+                        width: (360-(vueBoard.get_dim()+1)*4)/vueBoard.get_dim();
+                        height: (360-(vueBoard.get_dim()+1)*4)/vueBoard.get_dim();
                         Rectangle {
-                            color: vueBoard.state[index+16];
+                            color: vueBoard.state[index+vueBoard.get_taille()];
                             radius: 10;
-                            width: 85;
-                            height: 85;
+                            width: (360-(vueBoard.get_dim()+1)*4)/vueBoard.get_dim();
+                            height: (360-(vueBoard.get_dim()+1)*4)/vueBoard.get_dim();
                             Text {
                                 text: vueBoard.state[index];
                                 font.bold: true;
                                 verticalAlignment: Text.AlignVCenter;
                                 horizontalAlignment: Text.AlignHCenter;
                                 anchors.fill: parent;
-                                font.pixelSize: 36;
+                                font.pixelSize: 36*4/vueBoard.get_dim();
                                 font.family: "Arial Rounded MT Bold"
 
                             }
@@ -147,7 +153,7 @@ Item {
             width: 81
             height: 47
             color: "#ffffff"
-            text: vueBoard.state[32]
+            text: vueBoard.state[2*vueBoard.get_taille()]
             font.bold: true
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
