@@ -7,7 +7,8 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 
 ApplicationWindow {
-    id: messagegameover
+
+
     visible: true
     width: 480
     height: 600
@@ -17,10 +18,17 @@ ApplicationWindow {
     minimumHeight: 600
     minimumWidth: 480
 
+    id: optionspage
     MainForm {
         anchors.fill: parent
         mouseAreaNewGame.onClicked: vueBoard.board_init(vueBoard.get_dim());
         mouseAreaUndo.onClicked: vueBoard.go_back();
+
+        mouseAreaOptions.onClicked: {
+            var component = Qt.createComponent("page_options.qml")
+            var window    = component.createObject(optionspage)
+            window.show()
+        }
 
 
         //Il faut encore lie au signal cestlafin et ajouter les commandes aux buttons
