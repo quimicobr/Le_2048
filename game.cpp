@@ -552,7 +552,7 @@ void Game::newhighscore(){
 }
 
 int Game::thehighscore(){
-    char ths;
+    string ths;
     int iths;
     fstream myfile;
     myfile.open("highscoredata.txt", fstream::in);
