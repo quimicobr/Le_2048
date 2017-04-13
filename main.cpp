@@ -5,7 +5,6 @@
 #include <QtQml>
 
 #include "board.h"
-#include "board2.h"
 #include "game.h"
 
 int main(int argc, char *argv[])
@@ -25,26 +24,18 @@ int main(int argc, char *argv[])
 /*
     Game G(4);
     G.print_board();
-
-
     G.right();
     G.print_board();
-
     G.up();
     G.print_board();
-
     G.left();
     G.print_board();
-
     G.down();
     G.print_board();
-
     G.go_back();
     G.print_board();
-
     G.go_back();
     G.print_board();
-
     G.right();
     G.print_board();*/
 
@@ -76,4 +67,3 @@ int main(int argc, char *argv[])
     return app.exec();
     //return 0;
 }
-

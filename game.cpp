@@ -6,6 +6,9 @@
 #include <vector>
 #include <sys/time.h>
 #include <cmath>
+#include <fstream>
+#include <string>
+#include <sstream>
 
 
 using namespace std;
@@ -14,7 +17,7 @@ Game::Game(int l)
 {
     dim = l;
     T = new Board(dim);
-    colors.push_back("#8c8c98");
+    colors.push_back("#008c8c98");
     /*colors.push_back("#fef4f4");
     colors.push_back("#beac88");
     colors.push_back("#f8b650");
@@ -55,7 +58,6 @@ Game::Game(int l)
     QTableau.append(QString::number(0));
 
     board_init();
-
 
 
 
@@ -160,6 +162,8 @@ void Game::board_init(){
     update_qtableau();
     add_prev_board();
 
+    datapoints = thehighscore();
+
 }
 
 void Game::new_tile(int change){
@@ -201,6 +205,7 @@ void Game::new_tile(int change){
 
     }
 }
+
 
 void Game::right(){
 
@@ -244,7 +249,9 @@ void Game::right(){
         board_init();
     }
 
+    gamepoints = var_points;
     update_qtableau();
+
 }
 
 void Game::left(){
@@ -287,9 +294,14 @@ void Game::left(){
     }
     catch(const char* message){
         cout << message << endl;
-        board_init();
+        cestlafin();
+        //board_init();
     }
+
+    gamepoints = var_points;
     update_qtableau();
+
+
 }
 
 void Game::up(){
@@ -332,9 +344,16 @@ void Game::up(){
     }
     catch(const char* message){
         cout << message << endl;
-        board_init();
+        cestlafin();
+        //board_init();
     }
+
+    gamepoints = var_points;
     update_qtableau();
+
+
+
+
 
 }
 
@@ -377,15 +396,25 @@ void Game::down(){
     }
     catch(const char* message){
         cout << message << endl;
-        board_init();
+        cestlafin();
+        //board_init();
     }
+
+    gamepoints = var_points;
     update_qtableau();
+
+
+
 
 }
 
 QList <QString> Game::readState() const{
     return QTableau;
 }
+
+/*bool Game::isEnabled() const{
+    return over;
+}*/
 
 void Game::update_qtableau(){
 
@@ -417,6 +446,9 @@ void Game::update_qtableau(){
     else{
         throw "Erreur QT: QTableau n'a pas la bonne longueur";
     }
+
+
+    //newhighscore();
 
 
 
@@ -492,5 +524,32 @@ void Game::erase_Previous(){
     for (int i = 0; i<s; i++){
         Previous.pop_back();
     }
+}
+
+void Game::newhighscore(){
+    if (gamepoints>datapoints){
+        QTableau.append(QString::number(gamepoints));
+        stringstream ss;
+        ss << gamepoints;
+        string myString = ss.str();
+        fstream myfile;
+        myfile.open("highscoredata.txt",fstream::out | fstream::trunc);
+        myfile << "" << myString;
+        myfile.close();
+    }
+    else
+        QTableau.append(QString::number(datapoints));
+
+}
+
+int Game::thehighscore(){
+    char ths;
+    int iths;
+    fstream myfile;
+    myfile.open("highscoredata.txt", fstream::in);
+    myfile >> ths;
+    stringstream(ths) >> iths;
+    myfile.close();
+    return iths;
 }
 

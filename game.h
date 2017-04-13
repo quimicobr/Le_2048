@@ -30,23 +30,30 @@ public:
     void print_board();
     string get_color(int n);
     void erase_Previous();
+    void newhighscore();
+    int thehighscore();
 
 
     Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged); //Game
 
     QList <QString> readState() const; //Game
 
+    //Q_PROPERTY(bool enabled READ isEnabled NOTIFY cestlafin);
+
 signals:
 
     void stateChanged();
+    void cestlafin();
 
 private:
     QList <QString> QTableau;
     vector <Board> Previous;
     int dim;
     Board* T;
-    int points;
     vector <string> colors;
+    int gamepoints;
+    int datapoints;
+    bool over;
 };
 
 #endif // GAME_H
