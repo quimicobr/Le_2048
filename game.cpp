@@ -17,37 +17,35 @@ Game::Game(int l)
 {
     dim = l;
     T = new Board(dim);
-    colors.push_back("#008c8c98");
-    /*colors.push_back("#fef4f4");
-    colors.push_back("#beac88");
-    colors.push_back("#f8b650");
-    colors.push_back("#f1b7b3");
-    colors.push_back("#f15252");
-    colors.push_back("#f7c81f");
-    colors.push_back("#f7f41f");
-    colors.push_back("#98891a");
-    colors.push_back("#fb5b6b");
-    colors.push_back("#c3c35b");
-    colors.push_back("#fcfc07");
-    colors.push_back("#7f7c25");*/
 
-    colors.push_back("#739EAC");//2
-    colors.push_back("#55766F");//4
-    colors.push_back("#B99F79");//8
-    colors.push_back("#FBA950");//16
-    colors.push_back("#F68E25");//32
-    colors.push_back("#D55F19");//64
+    colors1.push_back("#008c8c98");
+    colors1.push_back("#fef4f4");
+    colors1.push_back("#beac88");
+    colors1.push_back("#f8b650");
+    colors1.push_back("#f1b7b3");
+    colors1.push_back("#f15252");
+    colors1.push_back("#f7c81f");
+    colors1.push_back("#f7f41f");
+    colors1.push_back("#98891a");
+    colors1.push_back("#fb5b6b");
+    colors1.push_back("#c3c35b");
+    colors1.push_back("#fcfc07");
+    colors1.push_back("#7f7c25");
 
-    colors.push_back("#A72404");//128
-
-    colors.push_back("#D54500");//256
-
-    colors.push_back("#FFB31F");//512
-    colors.push_back("#FFDA1F");//1024
-    colors.push_back("#FCFF1F");//2048
-
-    colors.push_back("#C7EDE4");//4096
-    colors.push_back("#009DDC");//8192
+    colors2.push_back("#008c8c98");
+    colors2.push_back("#739EAC");//2
+    colors2.push_back("#55766F");//4
+    colors2.push_back("#B99F79");//8
+    colors2.push_back("#FBA950");//16
+    colors2.push_back("#F68E25");//32
+    colors2.push_back("#D55F19");//64
+    colors2.push_back("#A72404");//128
+    colors2.push_back("#D54500");//256
+    colors2.push_back("#FFB31F");//512
+    colors2.push_back("#FFDA1F");//1024
+    colors2.push_back("#FCFF1F");//2048
+    colors2.push_back("#C7EDE4");//4096
+    colors2.push_back("#009DDC");//8192
 
 
     for (int i = 0; i<dim*dim; i++){
@@ -55,13 +53,20 @@ Game::Game(int l)
         QTableau.append(QString::fromStdString(" "));
     }
 
-    QTableau.append(QString::number(0));
+    readfile.setFileName("highscore.txt");
+
+    if (!readfile.open(QIODevice::ReadWrite)){
+        throw "Couldn't open readfile";
+    }
+
+    in.setDevice(&readfile);
+
+    qhigh = in.readLine();
+    highscore = qhigh.toInt();
+    QTableau.append(QString::number(0));    
+    QTableau.append(qhigh);
 
     board_init(dim);
-
-
-
-
 }
 
 Game::~Game(){
@@ -124,8 +129,19 @@ void GameOver(Board *B){
 
 void Game::board_init(int l){
 
-    dim = l;
-    T->init(dim);
+    int olddim = 0;
+    try{
+    if (l!= dim){
+        olddim = dim;
+        dim = l;
+        T->~Board();
+        T = new Board(dim);
+    }
+    else {
+        T->init(dim);
+    }
+
+
 
     erase_Previous();
     struct timeval tp;
@@ -160,10 +176,12 @@ void Game::board_init(int l){
     }
     T->set(x,y,v1);
     T->set(a,b,v2);
-    update_qtableau();
+    update_qtableau(olddim);
     add_prev_board();
 
-    datapoints = thehighscore();
+    }catch(const char* m){
+        cout << m;
+    }
 
 }
 
@@ -209,6 +227,14 @@ void Game::new_tile(int change){
         }
         T->set(x,y,val);
         add_prev_board();
+        if(T->get_points() > highscore){
+            highscore = T->get_points();
+            qhigh = QString::number(highscore);
+            readfile.resize(0);
+            in.flush();
+            in << qhigh;
+            in.flush();
+        }
         GameOver(T);
 
 
@@ -255,10 +281,9 @@ void Game::right(){
     }
     catch(const char* message){
         cout << message << endl;
-        board_init(dim);
+        //board_init(dim);
     }
 
-    gamepoints = var_points;
     update_qtableau();
 
 }
@@ -307,7 +332,6 @@ void Game::left(){
         //board_init(dim);
     }
 
-    gamepoints = var_points;
     update_qtableau();
 
 
@@ -357,7 +381,6 @@ void Game::up(){
         //board_init(dim);
     }
 
-    gamepoints = var_points;
     update_qtableau();
 
 
@@ -409,12 +432,7 @@ void Game::down(){
         //board_init(dim);
     }
 
-    gamepoints = var_points;
     update_qtableau();
-
-
-
-
 }
 
 QList <QString> Game::readState() const{
@@ -425,14 +443,36 @@ QList <QString> Game::readState() const{
     return over;
 }*/
 
-void Game::update_qtableau(){
+void Game::update_qtableau(int olddim){
 
-    if (QTableau.count() == 2*dim*dim + 1){
-        for (int i = 0; i<dim*dim; i++){
+    if (olddim != 0){
+        if (QTableau.count() == 2*olddim*olddim + 2){
+            for (int i = 0; i<olddim*olddim; i++){
+                QTableau.removeFirst();
+                QTableau.removeFirst();
+            }
             QTableau.removeFirst();
             QTableau.removeFirst();
         }
-        QTableau.removeFirst();
+        else{
+            throw "Erreur QT: QTableau n'a pas la bonne longueur";
+        }
+
+    }
+    else{
+        if (QTableau.count() == 2*dim*dim + 2){
+            for (int i = 0; i<dim*dim; i++){
+                QTableau.removeFirst();
+                QTableau.removeFirst();
+            }
+            QTableau.removeFirst();
+            QTableau.removeFirst();
+        }
+        else{
+            throw "Erreur QT: QTableau n'a pas la bonne longueur";
+        }
+    }
+
         for (int i = 0; i<dim; i++){
             for (int j = 0; j<dim; j++){
                 if (T->get(i,j)){
@@ -446,18 +486,13 @@ void Game::update_qtableau(){
         }
         for (int i = 0; i<dim; i++){
             for (int j = 0; j<dim; j++){
-                QTableau.append(QString::fromStdString(get_color(T->get(i,j))));
+                QTableau.append(QString::fromStdString(get_color(T->get(i,j),1)));
             }
         }
 
         QTableau.append(QString::number(T->get_points()));
-    }
-    else{
-        throw "Erreur QT: QTableau n'a pas la bonne longueur";
-    }
+        QTableau.append(qhigh);
 
-
-    //newhighscore();
 
 
 
@@ -504,27 +539,42 @@ void Game::print_board(){
     T->print();
 }
 
-string Game::get_color(int n){
+string Game::get_color(int n, int set){
 
     if (n != 0){
         int valmax, ind;
-        valmax = colors.size() - 1;
+        if (set == 1){
+            valmax = colors1.size() - 1;
+        }
+        if (set == 2){
+            valmax = colors2.size() - 1;
+        }
+
         double ndouble = double(n);
         double inddouble;
         inddouble = log2(ndouble);
         ind = int(inddouble + 0.5);
-        if (ind <= valmax){
-            return colors[ind];
+        if (set == 1){
+            if (ind <= valmax){
+                return colors1[ind];
+            }
+            else{
+                return colors1[valmax];
+            }
+
         }
-        else{
-            return colors[valmax];
+        if (set == 2){
+            if (ind <= valmax){
+                return colors2[ind];
+            }
+            else{
+                return colors2[valmax];
+            }
         }
     }
     else{
-        return colors[0];
+        return colors1[0];
     }
-
-
 }
 
 void Game::erase_Previous(){
@@ -535,30 +585,5 @@ void Game::erase_Previous(){
     }
 }
 
-void Game::newhighscore(){
-    if (gamepoints>datapoints){
-        QTableau.append(QString::number(gamepoints));
-        stringstream ss;
-        ss << gamepoints;
-        string myString = ss.str();
-        fstream myfile;
-        myfile.open("highscoredata.txt",fstream::out | fstream::trunc);
-        myfile << "" << myString;
-        myfile.close();
-    }
-    else
-        QTableau.append(QString::number(datapoints));
 
-}
-
-int Game::thehighscore(){
-    char ths;
-    int iths;
-    fstream myfile;
-    myfile.open("highscoredata.txt", fstream::in);
-    myfile >> ths;
-    stringstream(ths) >> iths;
-    myfile.close();
-    return iths;
-}
 

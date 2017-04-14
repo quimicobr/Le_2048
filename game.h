@@ -5,6 +5,9 @@
 #include <iostream>
 #include <QObject>
 #include <vector>
+#include <QTextStream>
+#include <QFile>
+#include <QString>
 
 using namespace std;
 
@@ -21,17 +24,15 @@ public:
     Q_INVOKABLE void right(); //Game
     Q_INVOKABLE void down(); //Game
     Q_INVOKABLE void left(); //Game
-    void update_qtableau(); //Game
+    void update_qtableau(int olddim = 0); //Game
     void print_Qlist(); //Game
     void add_prev_board(); //Game
     Q_INVOKABLE void go_back(); //Game
     void print_prev_size(); //Game
     Board *get_board();
     void print_board();
-    string get_color(int n);
+    string get_color(int n, int set);
     void erase_Previous();
-    void newhighscore();
-    int thehighscore();
     Q_INVOKABLE int get_dim();
     Q_INVOKABLE int get_taille();
 
@@ -51,10 +52,14 @@ private:
     vector <Board> Previous;
     int dim;
     Board* T;
-    vector <string> colors;
-    int gamepoints;
+    vector <string> colors1, colors2;
     int datapoints;
     bool over;
+    int highscore;
+    QTextStream in;
+    QFile readfile;
+    QString qhigh;
+
 };
 
 #endif // GAME_H

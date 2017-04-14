@@ -59,7 +59,7 @@ Item {
                 columns: vueBoard.get_dim()
                 spacing: 4
                 focus: true
-                /*Keys.onPressed:  {
+                Keys.onPressed:  {
                   switch (event.key) {
                     case Qt.Key_Up:
                       vueBoard.up();
@@ -75,8 +75,7 @@ Item {
                         break;
 
                   }
-                }*/
-
+                }
                 Repeater{
                     transformOrigin: Item.Right
                     model: vueBoard.get_taille();
@@ -203,7 +202,7 @@ Item {
             width: 81
             height: 47
             color: "#ffffff"
-            text: vueBoard.state[33]
+            text: vueBoard.state[2*vueBoard.get_taille()+1]
             anchors.left: rectangleHighScore.right
             verticalAlignment: Text.AlignVCenter
             font.bold: true

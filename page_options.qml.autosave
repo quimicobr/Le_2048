@@ -210,7 +210,6 @@ ApplicationWindow {
                 height: 48
                 hoverEnabled: false
                 onClicked: {
-
                     optionspage.close()
                     if (vueBoard.get_dim() != 5){
                         vueBoard.board_init(5);
