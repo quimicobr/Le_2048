@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
+        <file>options_icon.png</file>
+        <file>gameover.qml</file>
+        <file>page_options.qml</file>
     </qresource>
 </RCC>
