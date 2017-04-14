@@ -11,7 +11,7 @@ ApplicationWindow {
     maximumWidth: 400
     minimumHeight: 500
     minimumWidth: 400
-
+/*
     property alias mouseArea4x41: mouseArea4x41
     property alias mouseArea4x42: mouseArea4x42
     property alias mouseArea4x43: mouseArea4x43
@@ -19,6 +19,7 @@ ApplicationWindow {
     property alias mouseArea4x45: mouseArea4x45
     property alias mouseArea4x46: mouseArea4x46
 
+*/
 
     Rectangle {
         id: rectanglepageoptions
@@ -35,6 +36,7 @@ ApplicationWindow {
             height: 48
             color: "#fdfd14"
             radius: 8
+            anchors.leftMargin: 80
             anchors.top: parent.top
             anchors.topMargin: 96
             anchors.left: parent.left
@@ -65,9 +67,11 @@ ApplicationWindow {
                 anchors.leftMargin: 21
                 anchors.topMargin: -24
                 hoverEnabled: false
+                onClicked: {
+                    optionspage.close()
+                    vueBoard.board_init(4);
+                }
             }
-            //anchors.bottom: thedamier.top
-            anchors.leftMargin: 80
         }
 
         Rectangle {
@@ -100,6 +104,14 @@ ApplicationWindow {
                 width: 81
                 height: 48
                 hoverEnabled: false
+                onClicked: {
+                    optionspage.close()
+                    gamewindow.close()
+                    vueBoard.board_init(5);
+
+                    gamewindow.show()
+
+                }
             }
         }
 
@@ -134,6 +146,10 @@ ApplicationWindow {
                 width: 81
                 height: 48
                 hoverEnabled: false
+                onClicked: {
+                    optionspage.close()
+                    vueBoard.board_init(6);
+                }
             }
             anchors.bottom: parent.bottom
             anchors.leftMargin: 80
@@ -173,8 +189,12 @@ ApplicationWindow {
                 width: 81
                 height: 48
                 hoverEnabled: false
+                onClicked: {
+                    optionspage.close()
+                    vueBoard.board_init(4);
+                }
             }
-            //anchors.bottom: thedamier.top
+
         }
 
         Rectangle {
@@ -210,14 +230,11 @@ ApplicationWindow {
                 height: 48
                 hoverEnabled: false
                 onClicked: {
-
                     optionspage.close()
-                    if (vueBoard.get_dim() != 5){
-                        vueBoard.board_init(5);
-                    }
+                    vueBoard.board_init(5);
                 }
             }
-            anchors.leftMargin: -81
+
         }
 
         Rectangle {
@@ -255,8 +272,12 @@ ApplicationWindow {
                 width: 81
                 height: 48
                 hoverEnabled: false
+                onClicked: {
+                    optionspage.close()
+                    vueBoard.board_init(6);
+                }
             }
-            anchors.leftMargin: -81
+
         }
     }
 }

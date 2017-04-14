@@ -1,8 +1,14 @@
 import QtQuick 2.0
 import QtQuick 2.3
 import QtQuick.Controls 1.2
+import QtQuick 2.4
+import QtQuick.Controls 1.3
+import QtQuick.Dialogs 1.2
+import QtQuick 2.5
+import QtQuick.Window 2.2
 
 ApplicationWindow {
+    visible: true
     id: messagegameover
     width: 300
     height: 200
@@ -11,14 +17,26 @@ ApplicationWindow {
     minimumHeight: 200
     minimumWidth: 300
 
-    property alias mouseAreaNewGame: mouseAreaNewGame
-    property alias mouseAreaOptions: mouseAreaOptions
+    /*property alias mouseAreaNewGame2: mouseAreaNewGame2
+    property alias mouseAreaOptions2: mouseAreaOptions2
+
+
+    mouseAreaNewGame2.onClicked: {
+        vueBoard.board_init(vueBoard.get_dim());
+        messagegameover.close()
+    }
+    mouseAreaOptions2.onClicked: {
+        var component = Qt.createComponent("page_options.qml")
+        var window    = component.createObject(messagegameover)
+        window.show()
+        messagegameover.close()
+    }*/
 
 
     Rectangle {
         id: rectanglegameover
         color: "#9691cd"
-        radius: 10
+        radius: 0
         anchors.fill: parent
 
         Text {
@@ -36,17 +54,18 @@ ApplicationWindow {
         }
 
         Rectangle {
-            id: rectangleNewGame
+            id: rectangleNewGame2
             width: 128
             height: 48
             color: "#a2accb"
             radius: 10
+            anchors.leftMargin: 142
             anchors.top: parent.top
             anchors.topMargin: 111
             anchors.left: parent.left
             anchors.bottomMargin: 79
             Text {
-                id: textNewgame
+                id: textNewgame2
                 x: 8
                 y: 8
                 width: 112
@@ -61,41 +80,51 @@ ApplicationWindow {
             }
 
             MouseArea {
-                id: mouseAreaNewGame
+                id: mouseAreaNewGame2
                 x: 0
                 y: 0
                 width: 128
                 height: 48
+                onClicked: {
+                        vueBoard.board_init(vueBoard.get_dim());
+                        messagegameover.close()
+                }
             }
-            anchors.bottom: thedamier.top
-            anchors.leftMargin: 152
+
         }
 
         Rectangle {
-            id: rectangleOptions
+            id: rectangleOptions2
             width: 38
             height: 36
             color: "#00000000"
+            anchors.leftMargin: 52
             anchors.top: parent.top
             anchors.topMargin: 117
             anchors.left: parent.left
             anchors.bottomMargin: 20
+
             MouseArea {
-                id: mouseAreaOptions
+                id: mouseAreaOptions2
                 width: 38
                 height: 36
+                onClicked: {
+                        var component = Qt.createComponent("page_options.qml")
+                        var window    = component.createObject(page)
+                        window.show()
+                        messagegameover.close()
+                }
             }
 
             Image {
-                id: image
+                id: image2
                 x: 0
                 y: 0
                 width: 38
                 height: 36
                 source: "options_icon.png"
             }
-            anchors.bottom: thedamier.top
-            anchors.leftMargin: 54
+
         }
     }
 

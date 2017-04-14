@@ -130,6 +130,7 @@ void GameOver(Board *B){
 void Game::board_init(int l){
 
     int olddim = 0;
+    over = 0;
     try{
     if (l!= dim){
         olddim = dim;
@@ -140,8 +141,6 @@ void Game::board_init(int l){
     else {
         T->init(dim);
     }
-
-
 
     erase_Previous();
     struct timeval tp;
@@ -186,6 +185,7 @@ void Game::board_init(int l){
 }
 
 int Game::get_dim( ){
+    cout << dim;
     return dim;
 }
 
@@ -281,6 +281,7 @@ void Game::right(){
     }
     catch(const char* message){
         cout << message << endl;
+        over = 1;
         //board_init(dim);
     }
 
@@ -328,7 +329,8 @@ void Game::left(){
     }
     catch(const char* message){
         cout << message << endl;
-        cestlafin();
+        over = 1;
+        //cestlafin();
         //board_init(dim);
     }
 
@@ -377,7 +379,8 @@ void Game::up(){
     }
     catch(const char* message){
         cout << message << endl;
-        cestlafin();
+        over = 1;
+        //cestlafin();
         //board_init(dim);
     }
 
@@ -428,7 +431,8 @@ void Game::down(){
     }
     catch(const char* message){
         cout << message << endl;
-        cestlafin();
+        over = 1;
+        //cestlafin();
         //board_init(dim);
     }
 
@@ -439,9 +443,9 @@ QList <QString> Game::readState() const{
     return QTableau;
 }
 
-/*bool Game::isEnabled() const{
+int Game::isover() {
     return over;
-}*/
+}
 
 void Game::update_qtableau(int olddim){
 

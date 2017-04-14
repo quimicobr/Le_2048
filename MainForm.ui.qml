@@ -2,6 +2,12 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 import QtQuick 2.0
+import QtQuick 2.3
+import QtQuick.Dialogs 1.2
+import QtQuick 2.5
+import QtQuick.Window 2.2
+import QtQuick.Controls 1.2
+
 
 
 Item {
@@ -24,7 +30,7 @@ Item {
         anchors.fill: parent
 
         /*if enabled {
-        var component = Qt.createComponent("gameover.qml")
+        var component = Qt.createComponent("Game_over.qml")
         var window    = component.createObject(messagegameover)
         window.show()
         }*/
@@ -63,17 +69,36 @@ Item {
                   switch (event.key) {
                     case Qt.Key_Up:
                       vueBoard.up();
+                      if (vueBoard.isover()==1){
+                      var component = Qt.createComponent("gameover.qml")
+                      var window    = component.createObject(page)
+                      window.show()
+                      }
                       break;
                     case Qt.Key_Down:
                       vueBoard.down();
+                        if (vueBoard.isover()==1){
+                        var component = Qt.createComponent("gameover.qml")
+                        var window    = component.createObject(page)
+                        window.show()
+                        }
                       break;
                     case Qt.Key_Left:
                       vueBoard.left();
+                        if (vueBoard.isover()==1){
+                        var component = Qt.createComponent("gameover.qml")
+                        var window    = component.createObject(page)
+                        window.show()
+                        }
                         break;
                     case Qt.Key_Right:
                       vueBoard.right();
+                        if (vueBoard.isover()==1){
+                        var component = Qt.createComponent("gameover.qml")
+                        var window    = component.createObject(page)
+                        window.show()
+                        }
                         break;
-
                   }
                 }
                 Repeater{

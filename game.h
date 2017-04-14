@@ -35,6 +35,7 @@ public:
     void erase_Previous();
     Q_INVOKABLE int get_dim();
     Q_INVOKABLE int get_taille();
+    Q_INVOKABLE int isover();
 
     Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged); //Game
 
@@ -45,7 +46,7 @@ public:
 signals:
 
     void stateChanged();
-    void cestlafin();
+    //void cestlafin();
 
 private:
     QList <QString> QTableau;
@@ -54,7 +55,7 @@ private:
     Board* T;
     vector <string> colors1, colors2;
     int datapoints;
-    bool over;
+    int over;
     int highscore;
     QTextStream in;
     QFile readfile;

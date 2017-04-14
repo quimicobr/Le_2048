@@ -18,7 +18,8 @@ ApplicationWindow {
     minimumHeight: 600
     minimumWidth: 480
 
-    id: optionspage
+    id: gamewindow
+
     MainForm {
         anchors.fill: parent
         mouseAreaNewGame.onClicked: vueBoard.board_init(vueBoard.get_dim());
@@ -26,7 +27,7 @@ ApplicationWindow {
 
         mouseAreaOptions.onClicked: {
             var component = Qt.createComponent("page_options.qml")
-            var window    = component.createObject(optionspage)
+            var window    = component.createObject(gamewindow)
             window.show()
         }
 
@@ -40,14 +41,12 @@ ApplicationWindow {
 }
     /*Rectangle{
         id: rectangleBackground
-
         var component = Qt.createComponent("gameover.qml")
         if enabled {
         var window    = component.createObject(messagegameover)
         window.show()
         }*/
 }
-
 
 
 
