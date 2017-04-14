@@ -11,15 +11,7 @@ ApplicationWindow {
     maximumWidth: 400
     minimumHeight: 500
     minimumWidth: 400
-/*
-    property alias mouseArea4x41: mouseArea4x41
-    property alias mouseArea4x42: mouseArea4x42
-    property alias mouseArea4x43: mouseArea4x43
-    property alias mouseArea4x44: mouseArea4x44
-    property alias mouseArea4x45: mouseArea4x45
-    property alias mouseArea4x46: mouseArea4x46
 
-*/
 
     Rectangle {
         id: rectanglepageoptions
@@ -69,6 +61,7 @@ ApplicationWindow {
                 hoverEnabled: false
                 onClicked: {
                     optionspage.close()
+                    vueBoard.set_color(2);
                     vueBoard.board_init(4);
                 }
             }
@@ -106,10 +99,8 @@ ApplicationWindow {
                 hoverEnabled: false
                 onClicked: {
                     optionspage.close()
-                    gamewindow.close()
+                    vueBoard.set_color(2);
                     vueBoard.board_init(5);
-
-                    gamewindow.show()
 
                 }
             }
@@ -148,6 +139,7 @@ ApplicationWindow {
                 hoverEnabled: false
                 onClicked: {
                     optionspage.close()
+                    vueBoard.set_color(2);
                     vueBoard.board_init(6);
                 }
             }
@@ -191,6 +183,7 @@ ApplicationWindow {
                 hoverEnabled: false
                 onClicked: {
                     optionspage.close()
+                    vueBoard.set_color(1);
                     vueBoard.board_init(4);
                 }
             }
@@ -231,6 +224,7 @@ ApplicationWindow {
                 hoverEnabled: false
                 onClicked: {
                     optionspage.close()
+                    vueBoard.set_color(1);
                     vueBoard.board_init(5);
                 }
             }
@@ -274,6 +268,7 @@ ApplicationWindow {
                 hoverEnabled: false
                 onClicked: {
                     optionspage.close()
+                    vueBoard.set_color(1);
                     vueBoard.board_init(6);
                 }
             }

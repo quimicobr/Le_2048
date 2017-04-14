@@ -18,10 +18,11 @@ Item {
     property alias mouseAreaNewGame: mouseAreaNewGame
     property alias mouseAreaUndo: mouseAreaUndo
     property alias mouseAreaOptions: mouseAreaOptions
+    property alias rectangleBackground: rectangleBackground
 
     Rectangle {
         id: rectangleBackground
-        color: "#fdf9a7"
+        color: {if (vueBoard.getcol()==2) "#fdf9a7";else "#16f0fd"}
         anchors.rightMargin: 0
         anchors.bottomMargin: 0
         anchors.leftMargin: 0
@@ -148,7 +149,7 @@ Item {
             font.family: "Arial Unicode MS"
             font.wordSpacing: 0
             font.weight: Font.Normal
-            style: Text.Outline
+            //style: Text.Outline
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             font.bold: true
             fontSizeMode: Text.Fit

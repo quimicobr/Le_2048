@@ -19,7 +19,7 @@ Game::Game(int l)
     T = new Board(dim);
 
     colors1.push_back("#008c8c98");
-    colors1.push_back("#fef4f4");
+    colors1.push_back("#C7EDE4");
     colors1.push_back("#beac88");
     colors1.push_back("#f8b650");
     colors1.push_back("#f1b7b3");
@@ -29,8 +29,9 @@ Game::Game(int l)
     colors1.push_back("#98891a");
     colors1.push_back("#fb5b6b");
     colors1.push_back("#c3c35b");
-    colors1.push_back("#fcfc07");
+    colors1.push_back("#009DDC");
     colors1.push_back("#7f7c25");
+    colors1.push_back("#009DDC");
 
     colors2.push_back("#008c8c98");
     colors2.push_back("#739EAC");//2
@@ -185,9 +186,13 @@ void Game::board_init(int l){
 }
 
 int Game::get_dim( ){
-    cout << dim;
     return dim;
 }
+
+int Game::getcol( ){
+    return ncol;
+}
+
 
 int Game::get_taille( ){
     return dim*dim;
@@ -490,7 +495,7 @@ void Game::update_qtableau(int olddim){
         }
         for (int i = 0; i<dim; i++){
             for (int j = 0; j<dim; j++){
-                QTableau.append(QString::fromStdString(get_color(T->get(i,j),1)));
+                QTableau.append(QString::fromStdString(get_color(T->get(i,j),ncol)));
             }
         }
 
@@ -589,5 +594,8 @@ void Game::erase_Previous(){
     }
 }
 
+void Game::set_color(int n){
+    ncol = n;
+}
 
 

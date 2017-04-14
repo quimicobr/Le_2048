@@ -16,21 +16,7 @@ ApplicationWindow {
     maximumWidth: 300
     minimumHeight: 200
     minimumWidth: 300
-
-    /*property alias mouseAreaNewGame2: mouseAreaNewGame2
-    property alias mouseAreaOptions2: mouseAreaOptions2
-
-
-    mouseAreaNewGame2.onClicked: {
-        vueBoard.board_init(vueBoard.get_dim());
-        messagegameover.close()
-    }
-    mouseAreaOptions2.onClicked: {
-        var component = Qt.createComponent("page_options.qml")
-        var window    = component.createObject(messagegameover)
-        window.show()
-        messagegameover.close()
-    }*/
+    flags: Qt.FramelessWindowHint
 
 
     Rectangle {

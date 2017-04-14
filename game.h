@@ -36,17 +36,19 @@ public:
     Q_INVOKABLE int get_dim();
     Q_INVOKABLE int get_taille();
     Q_INVOKABLE int isover();
+    Q_INVOKABLE void set_color(int n);
+    Q_INVOKABLE int getcol();
 
     Q_PROPERTY(QList <QString> state READ readState NOTIFY stateChanged); //Game
 
     QList <QString> readState() const; //Game
 
-    //Q_PROPERTY(bool enabled READ isEnabled NOTIFY cestlafin);
+
 
 signals:
 
     void stateChanged();
-    //void cestlafin();
+
 
 private:
     QList <QString> QTableau;
@@ -60,6 +62,7 @@ private:
     QTextStream in;
     QFile readfile;
     QString qhigh;
+    int ncol = 2;
 
 };
 
